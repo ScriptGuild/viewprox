@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ViewProx – Download for Windows</title>
+<style>
+:root{--bg:#0a0c0d;--s1:#0f1213;--s2:#151a1c;--s3:#1d2427;--line:#263034;--text:#d7e0dc;--muted:#7f8f8a;--dim:#52605c;--acc:#b6ff3c;--acc-hi:#d4ff7a;--on:#0a0f02;--ok:#3ddc97;
+--mono:"JetBrains Mono","Cascadia Mono","Cascadia Code","SF Mono",Menlo,Consolas,"DejaVu Sans Mono","Liberation Mono","Courier New",monospace;
+color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--mono);font-size:14px;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:24px 24px 80px}
+header{display:flex;align-items:center;justify-content:space-between;padding-bottom:20px}
+.logo{display:flex;align-items:center;gap:12px;font-weight:700;font-size:17px;letter-spacing:.15em}
+.mark{width:28px;height:28px;background:var(--acc);clip-path:polygon(25% 0,100% 0,100% 75%,75% 100%,0 100%,0 25%);display:grid;place-items:center}
+.mark svg{width:16px;height:16px;fill:var(--on)}
+.rule{height:2px;background:var(--line);position:relative}
+.rule::before{content:"";position:absolute;left:0;top:0;width:56px;height:2px;background:var(--acc)}
+.tag{color:var(--muted);font-size:12px}
+h1{font-size:clamp(30px,6vw,52px);line-height:1.08;margin:64px 0 16px;letter-spacing:-.01em;max-width:14em}
+.lead{color:var(--muted);max-width:56ch;margin:0 0 36px;font-size:15px}
+.btn{font:inherit;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line);background:var(--s1);color:var(--text);padding:14px 24px;cursor:pointer;
+clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:background .14s,color .14s}
+.btn:hover:not(:disabled){background:var(--s2);color:var(--acc)}
+.btn.primary{background:var(--acc);color:var(--on);border-color:var(--acc)}
+.btn.primary:hover:not(:disabled){background:var(--acc-hi);color:var(--on)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn:focus-visible,input:focus-visible,.terms:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.platforms{display:flex;flex-wrap:wrap;gap:12px;align-items:stretch}
+.plat{display:flex;align-items:center;gap:14px;padding:16px 22px;background:var(--s1);border:1px solid var(--line);color:var(--text);font:inherit;cursor:pointer;text-align:left;transition:border-color .14s,background .14s}
+.plat:hover:not(:disabled){border-color:var(--acc);background:var(--s2)}
+.plat[aria-pressed="true"]{border-color:var(--acc);background:var(--s3)}
+.plat svg{width:26px;height:26px;fill:var(--acc);flex:none}
+.plat b{display:block;font-size:15px}
+.plat small{color:var(--muted);font-size:12px}
+.plat:disabled{opacity:.4;cursor:not-allowed}
+.plat:disabled svg{fill:var(--dim)}
+.facts{display:flex;flex-wrap:wrap;gap:8px 28px;margin:28px 0 0;color:var(--dim);font-size:12px}
+#gate{display:none;margin-top:56px}
+#gate.show{display:block;animation:in .22s ease-out}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+h2{font-size:22px;margin:0 0 6px}
+.sub{color:var(--muted);margin:10px 0 16px}
+.terms{height:min(52vh,460px);overflow-y:auto;background:var(--s1);border:1px solid var(--line);padding:20px 24px}
+.terms h3{font-size:15px;margin:26px 0 8px;color:var(--text)}
+.terms h3:first-of-type{margin-top:0}
+.terms p,.terms li{color:#b4c0bb;margin:0 0 10px;max-width:72ch}
+.terms ul{padding-left:20px;margin:0 0 10px}
+.terms h4{font-size:18px;margin:0 0 12px}
+.meta{color:var(--muted)}
+.prog{height:3px;background:var(--s3);margin-top:-1px}
+.prog i{display:block;height:100%;width:0;background:var(--acc)}
+.status{display:flex;justify-content:space-between;gap:12px;color:var(--dim);font-size:12px;margin:10px 0 18px;flex-wrap:wrap}
+.status .done{color:var(--ok)}
+.agree{display:flex;gap:12px;align-items:flex-start;margin-bottom:20px;color:var(--text)}
+.agree input{margin-top:4px;width:16px;height:16px;accent-color:var(--acc);flex:none}
+.agree.off{opacity:.4}
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.note{display:none;margin-top:20px;padding:12px 16px;background:var(--s2);border:1px solid var(--line);border-left:4px solid var(--ok)}
+.note.show{display:block}
+footer{margin-top:72px;color:var(--dim);font-size:12px}
+footer a{color:var(--muted)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}#gate.show{animation:none}.btn,.plat{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo"><span class="mark"><svg viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z"/></svg></span>VIEWPROX</div>
+    <span class="tag">by ScriptGuild</span>
+  </header>
+  <div class="rule"></div>
+
+  <h1>Paste a magnet. Press play.</h1>
+  <p class="lead">ViewProx streams the video you choose straight from a magnet link or info hash, with subtitles and a personal library. Nothing is kept on your drive when you leave the player.</p>
+
+  <div class="platforms" role="group" aria-label="Choose your platform">
+    <button class="plat" id="win" type="button" aria-pressed="false" aria-controls="gate">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5l7.5-1v7H3zM11.5 4.4L21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.4z"/></svg>
+      <span><b>Windows</b><small>Available now</small></span>
+    </button>
+    <button class="plat" type="button" disabled><span><b>macOS</b><small>Not available</small></span></button>
+    <button class="plat" type="button" disabled><span><b>Linux</b><small>Not available</small></span></button>
+  </div>
+  <p class="facts"><span>Stream while it downloads</span><span>Subtitles (.srt)</span><span>Resume where you stopped</span><span>Temporary cache, auto-deleted</span></p>
+
+  <section id="gate" aria-labelledby="gt">
+    <div class="rule" style="margin-bottom:28px"></div>
+    <h2 id="gt">Read the Terms of Service to unlock the download</h2>
+    <p class="sub">Scroll to the end of the terms. The download button stays locked until you have read them and agreed.</p>
+    <div class="terms" id="terms" tabindex="0" aria-label="Terms of Service">
+      <h4>ViewProx Terms of Service</h4>
+      <p class="meta"><b>Effective Date:</b> November 24, 2026<br><b>Application:</b> ViewProx<br><b>Developer/Operator:</b> ScriptGuild<br><b>Contact:</b> scriptguild.mail@gmail.com</p>
+
+      <h3>1. Acceptance of Terms</h3>
+      <p>By downloading, installing, accessing, or using ViewProx (“the Application”), you agree to these Terms of Service. If you do not agree, you must discontinue use of the Application.</p>
+
+      <h3>2. Purpose of the Application</h3>
+      <p>ViewProx is a media playback application designed to provide users with tools for viewing and managing video content.</p>
+      <p>Depending on the version and enabled features, the Application may support:</p>
+      <ul><li>Playback of locally stored media files.</li><li>Access to media metadata and information from external services.</li><li>Compatibility with third-party media sources and protocols.</li><li>Peer-to-peer media protocols and torrent-based playback.</li><li>Playback of content supplied or selected by the user.</li></ul>
+      <p>ViewProx is not intended to encourage, authorize, or facilitate copyright infringement.</p>
+
+      <h3>3. Copyright and Intellectual Property</h3>
+      <p>All movies, television programs, videos, music, subtitles, artwork, and other creative works may be protected by copyright or other intellectual property laws.</p>
+      <p>ViewProx does not grant users ownership of, or permission to use, copyrighted works.</p>
+      <p>Users are solely responsible for ensuring that they have the necessary rights, licenses, permissions, or other lawful basis to access, download, reproduce, transmit, distribute, or view content through the Application.</p>
+      <p>Users must not use ViewProx to:</p>
+      <ul><li>Access or distribute copyrighted material without authorization.</li><li>Reproduce, publicly perform, or communicate copyrighted works unlawfully.</li><li>Share unauthorized copies of movies, television programs, music, or other protected works.</li><li>Circumvent copyright protections or technological restrictions.</li><li>Use the Application to facilitate another person’s copyright infringement.</li></ul>
+      <p>Nothing in these Terms grants permission to violate the rights of copyright owners.</p>
+
+      <h3>4. User Responsibility</h3>
+      <p>You acknowledge and agree that you are responsible for:</p>
+      <ul><li>The content you choose to access or play.</li><li>Any files, links, magnet links, info hashes, identifiers, or media sources you provide or select.</li><li>Ensuring that your use complies with applicable copyright and intellectual property laws.</li><li>Obtaining any necessary authorization before accessing, downloading, or distributing protected material.</li></ul>
+      <p>The developer does not authorize users to access content illegally and does not endorse unauthorized distribution of copyrighted works.</p>
+
+      <h3>5. Third-Party Services and Sources</h3>
+      <p>ViewProx may integrate with, communicate with, or rely on third-party services, APIs, databases, media providers, peer-to-peer networks, trackers, or external websites.</p>
+      <p>These third parties operate independently of ViewProx and may have their own terms, policies, and licensing arrangements.</p>
+      <p>Unless expressly stated otherwise:</p>
+      <ul><li>ViewProx does not own third-party content.</li><li>Third-party names, trademarks, metadata, artwork, and other materials remain the property of their respective owners.</li><li>ViewProx does not guarantee the legality, accuracy, availability, or reliability of third-party information or sources.</li><li>ViewProx does not guarantee that external torrents, files, or media sources are authorized by their respective copyright owners.</li><li>Users are responsible for complying with the terms and applicable laws governing third-party services.</li></ul>
+      <p>The inclusion of information about a media work does not mean ViewProx owns, licenses, or endorses that work.</p>
+
+      <h3>6. No Authorization or Endorsement</h3>
+      <p>ViewProx is not affiliated with, sponsored by, or endorsed by any movie studio, television network, streaming platform, record label, copyright holder, torrent index, or other rights holder unless explicitly stated.</p>
+      <p>Any references to third-party brands, titles, or creative works are for identification, compatibility, or informational purposes only.</p>
+
+      <h3>7. Prohibited Use</h3>
+      <p>You may not use ViewProx to:</p>
+      <ul><li>Violate any applicable law or regulation.</li><li>Infringe another person’s intellectual property rights.</li><li>Distribute malicious software or harmful files.</li><li>Interfere with the Application’s operation or security.</li><li>Abuse third-party services through the Application.</li><li>Misrepresent your authorization to access or distribute content.</li></ul>
+      <p>The developer reserves the right to restrict or discontinue features or access where reasonably necessary to address abuse, legal concerns, or security risks.</p>
+
+      <h3>8. Disclaimer of Warranties</h3>
+      <p>ViewProx is provided on an “AS IS” and “AS AVAILABLE” basis, to the extent permitted by applicable law.</p>
+      <p>The developer makes no guarantee that:</p>
+      <ul><li>The Application will operate without interruptions or errors.</li><li>Third-party services will remain available.</li><li>External metadata or media information will always be accurate.</li><li>All media formats, torrents, or sources will be supported.</li><li>External content will be authorized, safe, or free from malicious files.</li><li>The Application will be compatible with every device or operating system.</li></ul>
+
+      <h3>9. Limitation of Liability</h3>
+      <p>To the maximum extent permitted by applicable law, the developer shall not be liable for indirect, incidental, special, or consequential damages arising from the use or inability to use ViewProx.</p>
+      <p>This includes damages arising from:</p>
+      <ul><li>User-provided files, magnet links, info hashes, or media sources.</li><li>Unauthorized access or use of copyrighted content by users.</li><li>Third-party services, websites, peer-to-peer networks, or APIs.</li><li>Loss of locally stored files or playback information.</li><li>Service interruptions or technical failures.</li><li>Actions or omissions of third-party content providers.</li></ul>
+      <p>Nothing in this section excludes or limits liability that cannot legally be excluded or limited under applicable law.</p>
+
+      <h3>10. Indemnification</h3>
+      <p>To the extent permitted by applicable law, users agree to be responsible for claims, losses, or expenses arising from their unlawful use of the Application, their infringement of third-party rights, or their violation of these Terms.</p>
+      <p>This section does not remove or reduce any legal responsibility of the developer that cannot lawfully be excluded.</p>
+
+      <h3>11. Updates and Termination</h3>
+      <p>The developer may modify, suspend, discontinue, or update any part of ViewProx when reasonably necessary.</p>
+      <p>The developer may restrict access to the Application for users who materially violate these Terms, subject to applicable law.</p>
+
+      <h3>12. Changes to These Terms</h3>
+      <p>These Terms may be updated periodically. Updated versions will be made available through the Application or an official distribution channel.</p>
+      <p>Continued use of ViewProx after the effective date of an updated version constitutes acceptance of the revised Terms, where permitted by applicable law.</p>
+
+      <h3>13. Governing Law</h3>
+      <p>These Terms shall be interpreted in accordance with the laws of the Republic of the Philippines, where applicable, without excluding mandatory protections under other applicable laws.</p>
+
+      <h3>14. Contact Information</h3>
+      <p>For questions, legal notices, or concerns concerning ViewProx:</p>
+      <p><b>Developer:</b> ScriptGuild<br><b>Email:</b> scriptguild.mail@gmail.com</p>
+      <p><b>By installing or using ViewProx, you acknowledge that you have read and agreed to these Terms of Service.</b></p>
+    </div>
+    <div class="prog"><i id="bar"></i></div>
+    <div class="status"><span id="st">Scroll to the end of the terms to continue.</span><span id="pct">0%</span></div>
+
+    <label class="agree off" id="agreeLbl"><input type="checkbox" id="agree" disabled><span>I have read the Terms of Service and I agree to them.</span></label>
+    <div class="actions">
+      <button class="btn primary" id="dl" type="button" disabled>Download for Windows</button>
+      <span class="tag" id="lockMsg">Locked: read the terms first</span>
+    </div>
+    <div class="note" id="note" role="status">Download started. If nothing happened, check your browser’s download permissions and try again.</div>
+  </section>
+
+  <footer>© 2026 ScriptGuild. Contact: <a href="mailto:scriptguild.mail@gmail.com">scriptguild.mail@gmail.com</a></footer>
+</div>
+
+<script>
+// The installer is expected next to this page, named viewprox-setup.exe.
+var DOWNLOAD_URL = "viewprox-setup.exe";
+var DOWNLOAD_NAME = "viewprox-setup.exe";
+
+var win = document.getElementById("win"), gate = document.getElementById("gate"),
+    terms = document.getElementById("terms"), bar = document.getElementById("bar"),
+    pct = document.getElementById("pct"), st = document.getElementById("st"),
+    agree = document.getElementById("agree"), agreeLbl = document.getElementById("agreeLbl"),
+    dl = document.getElementById("dl"), lockMsg = document.getElementById("lockMsg"),
+    note = document.getElementById("note"), read = false;
+
+function update() {
+  var max = terms.scrollHeight - terms.clientHeight;
+  var p = max <= 0 ? 1 : Math.min(1, terms.scrollTop / max);
+  bar.style.width = (p * 100) + "%";
+  pct.textContent = Math.round(p * 100) + "%";
+  if (!read && p >= 0.99) {
+    read = true;
+    st.textContent = "You reached the end of the terms.";
+    st.className = "done";
+    agree.disabled = false;
+    agreeLbl.classList.remove("off");
+  }
+  sync();
+}
+function sync() {
+  var ok = read && agree.checked;
+  dl.disabled = !ok;
+  lockMsg.textContent = !read ? "Locked: read the terms first" : (ok ? "Ready" : "Locked: tick the box to agree");
+}
+win.addEventListener("click", function () {
+  win.setAttribute("aria-pressed", "true");
+  gate.classList.add("show");
+  gate.scrollIntoView({ behavior: "smooth", block: "start" });
+  update();
+});
+terms.addEventListener("scroll", update);
+window.addEventListener("resize", update);
+agree.addEventListener("change", sync);
+dl.addEventListener("click", function () {
+  if (dl.disabled) return;
+  if (DOWNLOAD_URL) {
+    var a = document.createElement("a");
+    a.href = DOWNLOAD_URL; a.download = DOWNLOAD_NAME;
+    document.body.appendChild(a); a.click(); a.remove();
+    note.textContent = "Download started. If nothing happened, check your browser’s download permissions and try again.";
+  } else {
+    note.textContent = "Terms accepted. The installer link has not been set yet.";
+  }
+  note.classList.add("show");
+});
+</script>
+</body>
+</html>
